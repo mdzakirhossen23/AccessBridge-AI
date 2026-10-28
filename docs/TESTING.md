@@ -26,6 +26,13 @@ Test date: 2026-10-28 (Asia/Dhaka)
 | Production Live AI returns a useful response | Passed |
 | Production personalized study plan uses the user's stated goal | Passed |
 | AI Markdown is rendered without exposing raw formatting markers | Passed |
+| Empty guidance forms show localized inline errors and focus the first invalid field | Passed |
+| Empty AI questions show an accessible error without losing the page | Passed |
+| Active navigation exposes its current-page state to assistive technology | Passed |
+| Language controls expose their selected state | Passed |
+| Sidebar and language controls support arrow-key navigation | Passed |
+| Mobile controls keep usable touch sizes and wrap without page overflow | Passed |
+| Accessibility update v2.1 matches the deployed cPanel files byte-for-byte | Passed |
 
 ## Still requiring event-period evidence
 
