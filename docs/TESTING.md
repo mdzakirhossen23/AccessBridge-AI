@@ -22,12 +22,15 @@ Test date: 2026-10-28 (Asia/Dhaka)
 | Missing local AI endpoint falls back without losing the plan | Passed |
 | Skip-to-content and visible keyboard focus styles exist | Passed |
 | High-contrast, large-text, and reduced-motion support exist | Passed |
+| Production frontend files match the verified local build | Passed |
+| Production Live AI returns a useful response | Passed |
+| Production personalized study plan uses the user's stated goal | Passed |
+| AI Markdown is rendered without exposing raw formatting markers | Passed |
 
 ## Still requiring event-period evidence
 
 - Real-user usability sessions
 - Full keyboard-only walkthrough
 - Screen-reader testing on Windows and mobile
-- Live production endpoint smoke test after deployment
 - Measured task-completion and impact results
 
