@@ -25,8 +25,14 @@ Target: `https://accessbridge.baharsoftbd.com/`
 | Narrow/mobile layout remains usable | Passed |
 | Browser console errors during audit | 0 |
 
-## Screen-reader evidence boundary
+## Human screen-reader listening test
 
-Windows Narrator was invoked, but it did not expose a separately controllable window to the automation environment. The page’s accessibility tree, names, roles, states, focus order and live-region behavior were verified. A final human listening pass with Narrator or NVDA is still required before claiming a complete screen-reader usability test.
+- Tester: MD Zakir Hossain
+- Screen reader: Windows Narrator
+- Result: **Pass**
+- Test date: 28 October 2026
+- Participant confirmation: Approved
+
+Page headings, sidebar navigation, form labels, validation errors, AI results, action buttons, selected-language state and active-page state were announced clearly. This human listening result complements the automated accessibility-tree, focus and keyboard checks above.
 
 
