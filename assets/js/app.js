@@ -64,6 +64,12 @@
         "Live AI with a safe rule-based fallback · multilingual · local privacy-first storage",
       verify:
         "Verify important information on the official website before acting.",
+      required: "Please complete the highlighted fields before continuing.",
+      topicRequired: "Enter a subject or service name.",
+      detailsRequired: "Describe what help you need.",
+      questionRequired: "Enter a question before sending.",
+      working: "Preparing your result…",
+      resultReady: "Your result is ready.",
     },
     bn: {
       liveReady: "Live AI প্রস্তুত",
@@ -84,6 +90,12 @@
       architecture:
         "Live AI ও নিরাপদ rule-based fallback · বহুভাষিক · privacy-first local storage",
       verify: "কাজ করার আগে গুরুত্বপূর্ণ তথ্য অফিসিয়াল ওয়েবসাইটে যাচাই করুন।",
+      required: "চালিয়ে যাওয়ার আগে চিহ্নিত ঘরগুলো পূরণ করুন।",
+      topicRequired: "বিষয় বা সেবার নাম লিখুন।",
+      detailsRequired: "আপনার কী সাহায্য প্রয়োজন তা লিখুন।",
+      questionRequired: "পাঠানোর আগে একটি প্রশ্ন লিখুন।",
+      working: "ফলাফল প্রস্তুত হচ্ছে…",
+      resultReady: "আপনার ফলাফল প্রস্তুত।",
     },
     ar: {
       liveReady: "الذكاء المباشر جاهز",
@@ -104,6 +116,12 @@
       architecture:
         "ذكاء مباشر مع بديل آمن · متعدد اللغات · تخزين محلي يحترم الخصوصية",
       verify: "تحقق من المعلومات المهمة على الموقع الرسمي قبل التصرف.",
+      required: "يرجى إكمال الحقول المحددة قبل المتابعة.",
+      topicRequired: "أدخل اسم الموضوع أو الخدمة.",
+      detailsRequired: "صف المساعدة التي تحتاجها.",
+      questionRequired: "أدخل سؤالاً قبل الإرسال.",
+      working: "جارٍ إعداد النتيجة…",
+      resultReady: "النتيجة جاهزة.",
     },
     nl: {
       liveReady: "Live AI gereed",
@@ -125,6 +143,12 @@
         "Live AI met veilige fallback · meertalig · lokale privacygerichte opslag",
       verify:
         "Controleer belangrijke informatie op de officiële website voordat u handelt.",
+      required: "Vul de gemarkeerde velden in voordat u doorgaat.",
+      topicRequired: "Vul een onderwerp of dienst in.",
+      detailsRequired: "Beschrijf welke hulp u nodig hebt.",
+      questionRequired: "Vul een vraag in voordat u verzendt.",
+      working: "Uw resultaat wordt voorbereid…",
+      resultReady: "Uw resultaat is klaar.",
     },
     de: {
       liveReady: "Live-KI bereit",
@@ -145,6 +169,12 @@
       architecture:
         "Live-KI mit sicherem Fallback · mehrsprachig · lokaler datenschutzorientierter Speicher",
       verify: "Prüfen Sie wichtige Informationen auf der offiziellen Website.",
+      required: "Füllen Sie die markierten Felder aus, bevor Sie fortfahren.",
+      topicRequired: "Geben Sie ein Thema oder einen Dienst ein.",
+      detailsRequired: "Beschreiben Sie, welche Hilfe Sie benötigen.",
+      questionRequired: "Geben Sie vor dem Senden eine Frage ein.",
+      working: "Ergebnis wird vorbereitet…",
+      resultReady: "Ihr Ergebnis ist fertig.",
     },
   };
   const u = (k) => (UI[lang] || UI.en)[k] || UI.en[k] || k;
@@ -195,7 +225,11 @@
     document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
     document
       .querySelectorAll("[data-lang]")
-      .forEach((b) => b.classList.toggle("selected", b.dataset.lang === l));
+      .forEach((b) => {
+        const selected = b.dataset.lang === l;
+        b.classList.toggle("selected", selected);
+        b.setAttribute("aria-pressed", String(selected));
+      });
     document
       .querySelectorAll("[data-i]")
       .forEach((el) => (el.textContent = t(el.dataset.i)));
@@ -207,7 +241,7 @@
     $("menu").innerHTML = ids
       .map(
         (p, i) =>
-          `<button type="button" data-page="${p}" class="${p === page ? "active" : ""}" title="${escape(t(p))}"><span class="ico">${icons[i]}</span><span class="txt">${escape(t(p))}</span></button>`,
+          `<button type="button" data-page="${p}" class="${p === page ? "active" : ""}" ${p === page ? 'aria-current="page"' : ""} title="${escape(t(p))}"><span class="ico" aria-hidden="true">${icons[i]}</span><span class="txt">${escape(t(p))}</span></button>`,
       )
       .join("");
     $("menu")
@@ -221,7 +255,7 @@
       );
   }
   function head(title, desc) {
-    return `<div class="pagehead"><div><div class="eyebrow">AccessBridge AI</div><h1>${escape(title)}</h1><div class="muted">${escape(desc)}</div></div><span class="pill">● ${escape(u("liveReady"))}</span></div>`;
+    return `<div class="pagehead"><div><div class="eyebrow">AccessBridge AI</div><h1 id="pageTitle" tabindex="-1">${escape(title)}</h1><div class="muted">${escape(desc)}</div></div><span class="pill">● ${escape(u("liveReady"))}</span></div>`;
   }
   function card(p, i) {
     return `<article class="card"><div class="symbol">${icons[i]}</div><h3>${escape(t(p))}</h3><p>${escape(t({ education: "learnDesc", career: "careerDesc", digital: "digitalDesc", access: "accessDesc", chat: "chatDesc", settings: "settingsDesc", about: "aboutDesc" }[p]))}</p><button data-go="${p}">${escape(t("getStarted"))}</button></article>`;
@@ -465,12 +499,12 @@
   };
   function form(kind) {
     const a = (FORMS[lang] || FORMS.en)[kind];
-    return `<div class="panel domain-panel"><form id="helpForm" data-kind="${kind}"><div class="fields"><label class="field">${escape(a[0])}<input name="topic" placeholder="${escape(a[1])}" required maxlength="160"></label><label class="field">${escape(a[2])}<select name="level">${a
+    return `<div class="panel domain-panel"><form id="helpForm" data-kind="${kind}" novalidate><div id="formError" class="form-error" role="alert" hidden></div><div class="fields"><label class="field">${escape(a[0])}<input name="topic" placeholder="${escape(a[1])}" required maxlength="160" aria-describedby="topicError"><span id="topicError" class="field-error" aria-live="polite"></span></label><label class="field">${escape(a[2])}<select name="level">${a
       .slice(3, 6)
       .map((x) => `<option>${escape(x)}</option>`)
       .join(
         "",
-      )}</select></label><label class="field wide">${escape(a[6])}<textarea name="details" placeholder="${escape(a[7])}" required maxlength="3000"></textarea></label></div><div class="actions"><button class="primary" type="submit">${escape(a[8])}</button><span class="note">${escape(mode === "live" ? LIVE_WORDS[lang].active : t("offline"))}</span></div></form><div id="formResult" class="result" role="status" aria-live="polite" hidden></div><div id="resultActions" class="actions" hidden><button type="button" id="copyResult">${escape(u("copy"))}</button><button type="button" id="downloadResult">${escape(u("download"))}</button><button type="button" id="saveResult">${escape(u("save"))}</button><button type="button" id="speakResult">${escape(u("speak"))}</button></div>${savedPlansHtml(kind)}</div>`;
+      )}</select></label><label class="field wide">${escape(a[6])}<textarea name="details" placeholder="${escape(a[7])}" required maxlength="3000" aria-describedby="detailsError"></textarea><span id="detailsError" class="field-error" aria-live="polite"></span></label></div><div class="actions"><button class="primary" type="submit">${escape(a[8])}</button><span class="note">${escape(mode === "live" ? LIVE_WORDS[lang].active : t("offline"))}</span></div></form><div id="formResult" class="result" role="status" aria-live="polite" tabindex="-1" hidden></div><div id="resultActions" class="actions" hidden aria-label="${escape(a[9])}"><button type="button" id="copyResult">${escape(u("copy"))}</button><button type="button" id="downloadResult">${escape(u("download"))}</button><button type="button" id="saveResult">${escape(u("save"))}</button><button type="button" id="speakResult">${escape(u("speak"))}</button></div>${savedPlansHtml(kind)}</div>`;
   }
   function guidance(kind, topic, level, details) {
     const a = (FORMS[lang] || FORMS.en)[kind];
@@ -541,7 +575,7 @@
     }
   }
   function assistant() {
-    return `<div class="panel"><div class="assistant-tools"><label class="field">${escape(t("selectMode"))}<select id="aiMode"><option value="live" ${mode === "live" ? "selected" : ""}>${escape(t("live"))}</option><option value="demo" ${mode === "demo" ? "selected" : ""}>${escape(t("demo"))}</option></select></label><button type="button" id="clearChat">${escape(u("clear"))}</button></div><p class="note" id="modeNote">${escape(mode === "live" ? LIVE_WORDS[lang].active : t("offline"))}</p><div id="chatlog" class="chat" aria-live="polite">${history.length ? history.map((m) => `<div class="bubble ${m.who === "user" ? "user" : ""}">${m.who === "assistant" ? markdown(m.text) : escape(m.text)}</div>`).join("") : `<div class="bubble">${escape(t("welcomeChat"))}</div>`}</div><form id="chatForm" class="chatrow"><input id="chatInput" maxlength="3000" required placeholder="${escape(t("question"))}"><button type="button" id="voiceInput" title="${escape(u("voice"))}" aria-label="${escape(u("voice"))}">🎤</button><button type="submit" class="primary">${escape(t("send"))}</button></form><p class="privacy-note">🔒 ${escape(u("privacy"))}</p></div>`;
+    return `<div class="panel"><div class="assistant-tools"><label class="field">${escape(t("selectMode"))}<select id="aiMode"><option value="live" ${mode === "live" ? "selected" : ""}>${escape(t("live"))}</option><option value="demo" ${mode === "demo" ? "selected" : ""}>${escape(t("demo"))}</option></select></label><button type="button" id="clearChat">${escape(u("clear"))}</button></div><p class="note" id="modeNote">${escape(mode === "live" ? LIVE_WORDS[lang].active : t("offline"))}</p><div id="chatlog" class="chat" role="log" aria-live="polite" aria-relevant="additions text">${history.length ? history.map((m) => `<div class="bubble ${m.who === "user" ? "user" : ""}">${m.who === "assistant" ? markdown(m.text) : escape(m.text)}</div>`).join("") : `<div class="bubble">${escape(t("welcomeChat"))}</div>`}</div><form id="chatForm" class="chatrow" novalidate><label class="sr-only" for="chatInput">${escape(t("question"))}</label><input id="chatInput" maxlength="3000" required placeholder="${escape(t("question"))}" aria-describedby="chatError"><button type="button" id="voiceInput" title="${escape(u("voice"))}" aria-label="${escape(u("voice"))}">🎤</button><button type="submit" class="primary">${escape(t("send"))}</button><div id="chatError" class="field-error chat-error" role="alert"></div></form><p class="privacy-note">🔒 ${escape(u("privacy"))}</p></div>`;
   }
   function render() {
     nav();
@@ -609,13 +643,37 @@
         e.preventDefault();
         const d = new FormData(f);
         const out = $("formResult");
-        out.hidden = false;
-        const topic = String(d.get("topic"));
+        const topicInput = f.elements.topic;
+        const detailsInput = f.elements.details;
+        const topic = String(d.get("topic") || "").trim();
         const level = String(d.get("level"));
-        const details = String(d.get("details"));
+        const details = String(d.get("details") || "").trim();
+        const invalid = [];
+        $("topicError").textContent = "";
+        $("detailsError").textContent = "";
+        [topicInput, detailsInput].forEach((el) => el.removeAttribute("aria-invalid"));
+        if (!topic) {
+          $("topicError").textContent = u("topicRequired");
+          topicInput.setAttribute("aria-invalid", "true");
+          invalid.push(topicInput);
+        }
+        if (!details) {
+          $("detailsError").textContent = u("detailsRequired");
+          detailsInput.setAttribute("aria-invalid", "true");
+          invalid.push(detailsInput);
+        }
+        $("formError").hidden = !invalid.length;
+        $("formError").textContent = invalid.length ? u("required") : "";
+        if (invalid.length) {
+          invalid[0].focus();
+          return;
+        }
+        out.hidden = false;
+        f.setAttribute("aria-busy", "true");
+        f.querySelector('[type="submit"]').disabled = true;
         out.textContent =
           mode === "live"
-            ? "…"
+            ? u("working")
             : guidance(f.dataset.kind, topic, level, details);
         let result = out.textContent;
         if (mode === "live") {
@@ -632,7 +690,11 @@
         }
         out.innerHTML = markdown(result);
         out.dataset.text = result;
+        f.removeAttribute("aria-busy");
+        f.querySelector('[type="submit"]').disabled = false;
         $("resultActions").hidden = false;
+        announce(u("resultReady"));
+        out.focus();
         $("copyResult").onclick = () => copyText(result);
         $("downloadResult").onclick = () =>
           downloadText(
@@ -696,7 +758,14 @@
         e.preventDefault();
         if (busy) return;
         const q = $("chatInput").value.trim();
-        if (!q) return;
+        if (!q) {
+          $("chatError").textContent = u("questionRequired");
+          $("chatInput").setAttribute("aria-invalid", "true");
+          $("chatInput").focus();
+          return;
+        }
+        $("chatError").textContent = "";
+        $("chatInput").removeAttribute("aria-invalid");
         const previous = history.slice(-8).map((m) => ({
           role: m.who === "user" ? "user" : "assistant",
           content: m.text,
@@ -769,6 +838,24 @@
   document
     .querySelectorAll("[data-lang]")
     .forEach((b) => (b.onclick = () => setLang(b.dataset.lang)));
+  document.querySelector(".languages").addEventListener("keydown", (e) => {
+    if (!["ArrowLeft", "ArrowRight"].includes(e.key)) return;
+    const buttons = [...document.querySelectorAll("[data-lang]")];
+    const current = buttons.indexOf(document.activeElement);
+    if (current < 0) return;
+    e.preventDefault();
+    const next = (current + (e.key === "ArrowRight" ? 1 : -1) + buttons.length) % buttons.length;
+    buttons[next].focus();
+  });
+  $("menu").addEventListener("keydown", (e) => {
+    if (!["ArrowUp", "ArrowDown", "Home", "End"].includes(e.key)) return;
+    const buttons = [...$("menu").querySelectorAll("button")];
+    const current = buttons.indexOf(document.activeElement);
+    if (current < 0) return;
+    e.preventDefault();
+    let next = e.key === "Home" ? 0 : e.key === "End" ? buttons.length - 1 : current + (e.key === "ArrowDown" ? 1 : -1);
+    buttons[(next + buttons.length) % buttons.length].focus();
+  });
   $("normal").onclick = () => {
     $("app").classList.add("normal");
     measure();
