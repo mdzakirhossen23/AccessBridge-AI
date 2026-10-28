@@ -36,8 +36,6 @@ Test date: 2026-10-28 (Asia/Dhaka)
 
 ## Still requiring event-period evidence
 
-- Signed real-user usability feedback (automated scenarios are documented separately)
-- Human listening pass with Windows Narrator or NVDA
 - Measured task-completion and impact results
 
 ## Additional records
