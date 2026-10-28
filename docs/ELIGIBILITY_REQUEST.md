@@ -1,6 +1,6 @@
 # Student eligibility clarification request
 
-Status: Prepared for the CTRL-V Hackathon organizer on 2026-10-28. Written confirmation is pending.
+Status: Sent to the CTRL-V Hackathon organizer on 2026-10-28 with the corrected CTRL-V request and supporting documents attached. Written confirmation is pending.
 
 Recipient: `aksz.team.13@gmail.com` (the Devpost “Email the hackathon manager” address)
 
