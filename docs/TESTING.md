@@ -36,8 +36,13 @@ Test date: 2026-10-28 (Asia/Dhaka)
 
 ## Still requiring event-period evidence
 
-- Real-user usability sessions
-- Full keyboard-only walkthrough
-- Screen-reader testing on Windows and mobile
+- Signed real-user usability feedback (automated scenarios are documented separately)
+- Human listening pass with Windows Narrator or NVDA
 - Measured task-completion and impact results
+
+## Additional records
+
+- [Student eligibility clarification request](ELIGIBILITY_REQUEST.md)
+- [User-scenario testing](USER_SCENARIO_TESTING.md)
+- [Accessibility audit v2.1](ACCESSIBILITY_AUDIT_V21.md)
 
