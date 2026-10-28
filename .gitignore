@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+api-chat.php
+*.log
+.DS_Store
+Thumbs.db
+node_modules/
+.idea/
+.vscode/
+

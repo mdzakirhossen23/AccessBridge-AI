@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="AccessBridge AI provides multilingual, accessible guidance for education, careers and essential digital services."
+    />
+    <title>AccessBridge AI</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/images/favicon-32.png?v=13"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="assets/images/favicon-192.png?v=13"
+    />
+    <link rel="shortcut icon" href="favicon.ico?v=13" />
+    <link
+      rel="apple-touch-icon"
+      href="assets/images/apple-touch-icon.png?v=13"
+    />
+    <link rel="stylesheet" href="assets/css/style.css?v=20" />
+  </head>
+  <body>
+    <a class="skip-link" href="#page">Skip to main content</a>
+    <div id="announcer" class="sr-only" role="status" aria-live="polite"></div>
+    <main id="app" class="window normal">
+      <header class="titlebar">
+        <div class="brand">
+          <img
+            class="logo-img"
+            src="assets/images/logo-icon.png"
+            alt="AccessBridge AI logo"
+          /><strong>AccessBridge <em>AI</em></strong>
+        </div>
+        <span id="size" class="size" aria-live="polite">0 × 0</span>
+        <nav class="languages" aria-label="Choose language">
+          <button data-lang="en" class="selected">English</button
+          ><button data-lang="bn">বাংলা</button
+          ><button data-lang="ar">العربية</button
+          ><button data-lang="nl">Nederlands</button
+          ><button data-lang="de">Deutsch</button>
+        </nav>
+        <div class="controls">
+          <button id="normal" title="Normal" aria-label="Normal">▣</button
+          ><button id="max" title="Maximize" aria-label="Maximize">□</button
+          ><button id="close" title="Close" aria-label="Close">×</button>
+        </div>
+      </header>
+      <div class="workspace">
+        <aside class="sidebar">
+          <div class="sidebar-caption" data-i="navigate">NAVIGATION</div>
+          <nav id="menu"></nav>
+          <div class="sidebar-bottom">
+            <span class="status-dot"></span
+            ><span id="liveStatus">Live AI ready</span>
+          </div>
+        </aside>
+        <section class="main"><div class="scroll" id="page"></div></section>
+      </div>
+      <footer>
+        <span>© 2026 BaharSoftBD · AccessBridge AI</span
+        ><span>Ctrl+V Hackathon · Competition build v2.0</span>
+      </footer>
+    </main>
+    <div id="closed" hidden>
+      <div class="closed-panel">
+        <img
+          class="logo-img big"
+          src="assets/images/logo-icon.png"
+          alt="AccessBridge AI logo"
+        />
+        <h1>AccessBridge AI</h1>
+        <p data-i="closed">Application window closed.</p>
+        <button id="reopen" class="primary" data-i="reopen">
+          Open application
+        </button>
+      </div>
+    </div>
+    <script src="assets/js/translations.js?v=20"></script>
+    <script src="assets/js/app.js?v=20"></script>
+  </body>
+</html>
+
